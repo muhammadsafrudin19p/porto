@@ -24,12 +24,14 @@
             overflow-x: hidden;
         }
 
-        /* Navigasi / Menu */
+        /* Navigasi / Menu (Dibuat Responsif dengan Flex-Wrap) */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 10%;
+            padding: 30px 8%;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .logo {
@@ -42,18 +44,19 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
         }
 
         /* Styling Menu Utama */
         nav ul li a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 500;
             transition: transform 0.3s ease, color 0.3s ease;
             display: inline-block;
             cursor: pointer;
+            padding: 5px 0;
         }
 
         nav ul li a:hover {
@@ -62,7 +65,7 @@
 
         /* Efek Menu Membesar saat Aktif */
         nav ul li a.active {
-            transform: scale(1.3);
+            transform: scale(1.25);
             color: #00bfff;
             font-weight: 700;
             text-shadow: 0 0 10px rgba(0, 191, 255, 0.6);
@@ -70,9 +73,9 @@
 
         /* Kontainer Utama untuk Halaman-Halaman */
         .content-container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px 8%;
             flex-grow: 1;
             display: flex;
             justify-content: center;
@@ -82,7 +85,7 @@
 
         /* Struktur Dasar Setiap Halaman */
         .page {
-            display: none; /* Sembunyikan semua halaman secara default */
+            display: none; 
             text-align: center;
             animation: fadeIn 0.5s ease forwards;
             width: 100%;
@@ -95,16 +98,20 @@
 
         /* Animasi Transisi Halaman */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- STYLING KONTEN HALAMAN --- */
+        /* --- STYLING KONTEN HALAMAN (Menggunakan ukuran REM agar fleksibel) --- */
         
         /* 1. Home */
-        .hero h1 { font-size: 48px; margin-bottom: 20px; }
+        .hero h1 { 
+            font-size: 2.8rem; 
+            margin-bottom: 20px; 
+            line-height: 1.2;
+        }
         .hero h1 span { color: #00bfff; text-shadow: 0 0 15px rgba(0, 191, 255, 0.4); }
-        .hero p { font-size: 18px; color: #ccd6f6; line-height: 1.6; margin-bottom: 40px; }
+        .hero p { font-size: 1.1rem; color: #ccd6f6; line-height: 1.6; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto; }
         
         .btn {
             display: inline-block;
@@ -124,14 +131,15 @@
         }
 
         /* 2. Tentang */
-        .about-text { max-width: 700px; margin: 0 auto; font-size: 18px; color: #ccd6f6; line-height: 1.8; }
+        .about-text { max-width: 800px; margin: 0 auto; font-size: 1.1rem; color: #ccd6f6; line-height: 1.8; text-align: justify; }
         
-        /* 3. Projek (Grid) */
+        /* 3. Projek (Grid Otomatis Berubah Kolomnya Tergantung Lebar Layar) */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             margin-top: 30px;
+            width: 100%;
         }
         .project-card {
             background: rgba(255, 255, 255, 0.03);
@@ -139,20 +147,23 @@
             padding: 25px;
             border-radius: 10px;
             transition: transform 0.3s ease, border-color 0.3s ease;
+            text-align: left;
         }
         .project-card:hover {
             transform: translateY(-5px);
             border-color: #00bfff;
             background: rgba(0, 191, 255, 0.02);
         }
-        .project-card h3 { color: #00bfff; margin-bottom: 10px; }
+        .project-card h3 { color: #00bfff; margin-bottom: 10px; font-size: 1.3rem; }
+        .project-card p { color: #ccd6f6; font-size: 0.95rem; line-height: 1.5; }
 
         /* 4. Kontak */
-        .contact-info { font-size: 18px; margin-top: 20px; color: #ccd6f6; }
-        .contact-info p { margin: 10px 0; }
-        .contact-info a { color: #00bfff; text-decoration: none; }
+        .contact-info { font-size: 1.1rem; margin-top: 20px; color: #ccd6f6; }
+        .contact-info p { margin: 15px 0; }
+        .contact-info a { color: #00bfff; text-decoration: none; transition: color 0.3s; }
+        .contact-info a:hover { text-decoration: underline; }
 
-        h2 { font-size: 36px; margin-bottom: 20px; color: #00bfff; }
+        h2 { font-size: 2.2rem; margin-bottom: 20px; color: #00bfff; }
 
         /* Footer */
         footer {
@@ -160,6 +171,49 @@
             padding: 20px;
             font-size: 14px;
             color: #8892b0;
+        }
+
+        /* ======================================================= */
+        /* MEDIA QUERIES (Sistem Otomatis Pengubah Ukuran Layar)   */
+        /* ======================================================= */
+
+        /* KETIKA DIBUKA DI TABLET (Lebar Layar Maksimal 768px) */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column; /* Logo di atas, menu di bawahnya */
+                padding: 20px 5%;
+            }
+            .content-container {
+                padding: 20px 5%;
+            }
+            .hero h1 {
+                font-size: 2.2rem; /* Judul mengecil */
+            }
+            .about-text {
+                text-align: left; /* Tetap rata kiri-kanan agar rapi */
+            }
+        }
+
+        /* KETIKA DIBUKA DI HP (Lebar Layar Maksimal 480px) */
+        @media (max-width: 480px) {
+            nav ul {
+                gap: 15px; /* Jarak antar menu merapat */
+            }
+            nav ul li a {
+                font-size: 14px; /* Teks menu mengecil */
+            }
+            nav ul li a.active {
+                transform: scale(1.15); /* Skala membesar dikurangi sedikit di HP agar tidak tabrakan */
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p, .about-text {
+                font-size: 1rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -188,36 +242,36 @@
         <section id="tentang" class="page">
             <h2>Tentang Saya</h2>
             <div class="about-text">
-                <p>Saya lulusan Teknik Elektronika Industri yang menggabungkan ketelitian logika teknik dengan dunia kreativitas visual. Keunikan saya terletak pada kemampuan mengoperasikan berbagai alat teknis maupun kreatif untuk menghasilkan karya yang berdampak.
-                    Di bidang teknis, saya berpengalaman dalam mendesain layout komponen elektronika (PCB) menggunakan Proteus dan Eagle . Sementara di industri kreatif, saya mewujudkan ide menjadi visual yang menarik menggunakan CorelDRAW, Figma, dan Canva untuk kebutuhan desain grafis (poster, banner, dll.), serta menguasai bidang fotografi, videografi, dan editing .
-                    Dari merancang jalur sirkuit yang rumit hingga menyusun layout visual yang estetis, saya selalu mengutamakan detail, fungsionalitas, dan keindahan.</p>
+                <p>Saya lulusan Teknik Elektronika Industri yang menggabungkan ketelitian logika teknik dengan dunia kreativitas visual. Keunikan saya terletak pada kemampuan mengoperasikan berbagai alat teknis maupun kreatif untuk menghasilkan karya yang berdampak.</p>
                 <br>
-                <p>Saya gemar mempelajari teknologi baru dan menerapkannya ke dalam proyek nyata untuk menyelesaikan berbagai masalah komputasi dan bisnis.</p>
+                <p>Di bidang teknis, saya berpengalaman dalam mendesain layout komponen elektronika (PCB) menggunakan Proteus dan Eagle. Sementara di industri kreatif, saya mewujudkan ide menjadi visual yang menarik menggunakan CorelDRAW, Figma, dan Canva untuk kebutuhan desain grafis (poster, banner, dll.), serta menguasai bidang fotografi, videografi, dan editing.</p>
+                <br>
+                <p>Dari merancang jalur sirkuit yang rumit hingga menyusun layout visual yang estetis, saya selalu mengutamakan detail, fungsionalitas, dan keindahan.</p>
             </div>
         </section>
 
         <section id="projek" class="page">
             <h2>Projek Terakhir</h2>
-            <p>Berikut adalah beberapa proyek yang telah saya kerjakan baru-baru ini:</p>
+            <p style="margin-bottom: 20px; color: #ccd6f6;">Berikut adalah beberapa proyek yang telah saya kerjakan baru-baru ini:</p>
             <div class="project-grid">
                 <div class="project-card">
-                    <h3>E-Commerce Web</h3>
-                    <p>Membangun platform toko online responsif dengan sistem pembayaran terintegrasi.</p>
+                    <h3>Layout PCB Design</h3>
+                    <p>Perancangan skematik dan layout sirkuit PCB multi-layer menggunakan Proteus/Eagle untuk kebutuhan modul otomatisasi industri.</p>
                 </div>
                 <div class="project-card">
-                    <h3>Company Profile</h3>
-                    <p>Desain dan pengembangan situs web resmi untuk perusahaan multinasional.</p>
+                    <h3>Visual Content & Branding</h3>
+                    <p>Pembuatan aset digital marketing, poster promosi, dan desain UI/UX media sosial menggunakan Figma dan CorelDRAW.</p>
                 </div>
                 <div class="project-card">
-                    <h3>Task Management App</h3>
-                    <p>Aplikasi web interaktif untuk produktivitas tim dan manajemen tugas.</p>
+                    <h3>Video Editing & Photography</h3>
+                    <p>Produksi dan pascaproduksi video profil serta dokumentasi komersial beresolusi tinggi dengan penataan sinematik.</p>
                 </div>
             </div>
         </section>
 
         <section id="kontak" class="page">
             <h2>Hubungi Saya</h2>
-            <p>Apakah Anda memiliki proyek menarik atau sekadar ingin menyapa? Hubungi saya melalui saluran berikut:</p>
+            <p style="color: #ccd6f6;">Apakah Anda memiliki proyek menarik atau sekadar ingin menyapa? Hubungi saya melalui saluran berikut:</p>
             <div class="contact-info">
                 <p>📧 Email: <a href="mailto:emailkamu@gmail.com">emailkamu@gmail.com</a></p>
                 <p>💼 LinkedIn: <a href="#" target="_blank">linkedin.com/in/username</a></p>
@@ -228,35 +282,29 @@
     </main>
 
     <footer>
-        &copy; 2026 Muhammaad Muslih . All Rights Reserved.
+        &copy; 2026 Muhammad Muslih. All Rights Reserved.
     </footer>
 
     <script>
         const menuItems = document.querySelectorAll('.menu-item');
         const pages = document.querySelectorAll('.page');
 
-        // Fungsi utama saat menu di klik
         menuItems.forEach(item => {
             item.addEventListener('click', function() {
                 const targetHalaman = this.getAttribute('data-target');
                 
-                // 1. Atur efek membesar pada menu aktif
                 menuItems.forEach(i => i.classList.remove('active'));
                 this.classList.add('active');
 
-                // 2. Ganti halaman konten
-                pages.forEach(page => {
-                    page.classList.remove('active-page');
-                });
+                pages.forEach(page => page.classList.remove('active-page'));
                 document.getElementById(targetHalaman).classList.add('active-page');
             });
         });
 
-        // Fungsi bantuan untuk tombol "Lihat Projek Saya" di halaman Home
         function bukaHalaman(idHalaman) {
             const menuTujuan = document.querySelector(`.menu-item[data-target="${idHalaman}"]`);
             if(menuTujuan) {
-                menuTujuan.click(); // Memicu fungsi klik di atas secara otomatis
+                menuTujuan.click();
             }
         }
     </script>
